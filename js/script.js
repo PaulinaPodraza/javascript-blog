@@ -117,7 +117,7 @@ function generateTags() {
       let linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
       console.log(linkHTML);
       /* add generated code to html variable */
-      html = html + '' + linkHTML;
+      html = html + ' ' + linkHTML;
       /* [NEW] check if this link is NOT already in allTags */
       if(!allTags[tag]) {
         /* [NEW] add tag to allTags object */
