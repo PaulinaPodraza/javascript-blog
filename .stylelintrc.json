@@ -2,6 +2,9 @@
   "plugins": [
     "stylelint-scss"
   ],
+  "globals": {
+  "Handlebars": false
+    },
   "rules": {
     "block-no-empty": true,
     "color-no-invalid-hex": true,

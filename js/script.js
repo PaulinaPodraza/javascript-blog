@@ -1,4 +1,10 @@
 'use strict';
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML);
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML);
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML);
+};
+
 const opt = {
   articleSelector: '.post',
   titleSelector: '.post-title',
@@ -51,7 +57,8 @@ function generateTitleLinks(customSelector = ''){
     /* get the title from the title element */
     const articleTitle = article.querySelector(opt.titleSelector).innerHTML;
     /* create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     /* insert link into titleList */
     html = html + linkHTML;
   }
@@ -105,7 +112,9 @@ function generateTags() {
     /* START LOOP: for each tag */
     for (let tag of articleTagsArray) {
       /* generate HTML of the link */
-      let linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      // let linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const linkHTMLData = {id: tag, title: tag};
+      const linkHTML = templates.tagLink(linkHTMLData);
       /* add generated code to html variable */
       html = html + ' ' + linkHTML;
       /* [NEW] check if this link is NOT already in allTags */
@@ -198,7 +207,9 @@ function generateAuthors() {
     /* get autors from data-author attribute */
     const articleAuthor = article.getAttribute('data-author');
     /* generate HTML of the link */
-    const linkHTML = '<p><a href="#author' + articleAuthor + '"><span>' + articleAuthor + ' ' + '</span</a></p>';
+    // const linkHTML = '<p><a href="#author' + articleAuthor + '"><span>' + articleAuthor + ' ' + '</span</a></p>';
+    const linkHTMLData = {id: articleAuthor, title: articleAuthor};
+    const linkHTML = templates.authorLink(linkHTMLData);
     /* add generated code to html variable */
     html = html + '' + linkHTML;
     if(!allAuthors[articleAuthor]) {
